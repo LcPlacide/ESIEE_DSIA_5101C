@@ -32,6 +32,6 @@ package fr.esiee.fpic.labs:
             case n::ns => max(ns).flatMap(x => Some(scala.math.max(x, n)))
 
     // Adding some Curry to Scala Functions... ;-)
-    def sum(a: Int)(b: Int): Int = a + b
+    //def sum(a: Int)(b: Int): Int = a + b
 
     
