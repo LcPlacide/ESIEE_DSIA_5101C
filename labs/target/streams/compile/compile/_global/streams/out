@@ -1,6 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m[31m-- Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\motus.scala:133:4 [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m133 |[0m    @main[0m
-[0m[[0m[31merror[0m] [0m[0m    |    [31m^^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m    |    @main annotation cannot be applied to [33mvalue[0m [35mmain_dict[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\motus.scala:99:132 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m99 |[0m    [33mdef[0m [36mmake_proposal[0m([36mretry[0m:[35mInt[0m, [36mplayerAnswers[0m:[35mMap[String,Dict][0m, [36mmachineAnswers[0m:[35mMap[String,Dict][0m, [36mcorrect[0m:[35mWord[0m, [36mhideMachine[0m:[35mBoolean[0m=True): [35mUnit[0m =[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                                                                                                    [31m^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                         Not found: True[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
