@@ -1,13 +1,10 @@
 package fr.esiee.fpic.labs:
     import scala.util.Random
     import scala.io.StdIn.readLine
-    import scala.compiletime.ops.boolean
-
-    def clear() = print("\u001b[2J\n")
-
+    
     class Word(val str:String=""){
         val length = str.length
-        val index = (0 to length-1).toList //for (i<-0 to str.length-1) yield i
+        val index = (0 to length-1).toList
         val letterOrder = for (i<-index) yield (str(i),i) 
         //index.foldLeft(List[(Char,Int)]()) ((xs:List[(Char, Int)], x:Int)=> xs:::List((str(x),x)))
         val letters = for (i<-index) yield (str(i),-1) 
@@ -28,42 +25,42 @@ package fr.esiee.fpic.labs:
 
     class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8"){
         val it = if fromFile!="" then scala.io.Source.fromFile(fromFile, enc).getLines.toList else List() 
-        val all_words = if it!=List() then (for (w<-it) yield Word(w)).toList else fromList
-        val size = all_words.length
+        val allWords = if it!=List() then (for (w<-it) yield Word(w)).toList else fromList
+        val size = allWords.length
 
         def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set()): Dict = 
             val sizeFilter = size match {
-                case n:Int if n>0 => Dict(fromList=(for (w <- all_words; if w.length == size) yield w).toList)
+                case n:Int if n>0 => Dict(fromList=(for (w <- allWords; if w.length == size) yield w).toList)
                 case _ => this
             }
             
             val includeFilter = toInclude match {
-                case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- sizeFilter.all_words; if w.isInclude(toInclude)) yield w).toList)
+                case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- sizeFilter.allWords; if w.isInclude(toInclude)) yield w).toList)
                 case _ => sizeFilter
             }
 
             toExclude match {
-                case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- includeFilter.all_words; if w.isExclude(toExclude)) yield w).toList)
+                case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- includeFilter.allWords; if w.isExclude(toExclude)) yield w).toList)
                 case _ => includeFilter
             }
 
         def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set()): Word = 
             val random = new Random
-            val filter = selectWords(n, toInclude, toExclude).all_words
+            val filter = selectWords(n, toInclude, toExclude).allWords
             filter.length  match {
                 case v:Int if v>0 => filter(random.nextInt(filter.length)) 
                 case _ => Word()
             }
 
         def isValidWord(myWord:String): Boolean =
-            all_words.find(_.str==myWord) match {
+            allWords.find(_.str==myWord) match {
                 case Some(_) => true
                 case None => false
             }
 
         def getSpecificWord(str:String): Word =
             isValidWord(str) match
-                case true => (for (w<-all_words ; if w.str==str) yield w).head
+                case true => (for (w<-allWords ; if w.str==str) yield w).head
                 case false => Word()
 
         override def toString : String = s"Dict(${size})"
@@ -96,6 +93,8 @@ package fr.esiee.fpic.labs:
             coloredAnswer.toList.foldLeft("")(_+_)+Console.RESET
     }
 
+    def clear() = print("\u001b[2J\n")
+
     def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[String,Dict], correct:Word, hideMachine:Boolean=true): Unit =
         val currentPlayerAnswer = retry match {
             case r: Int if r>=0 => readLine(s"Votre proposition ${(playerAnswers("last").size+1)} sur ${(playerAnswers("last").size+retry)} ? ").toUpperCase()
@@ -123,13 +122,13 @@ package fr.esiee.fpic.labs:
                             return()
                         case false =>
                             val machineUpdate = Map("next"->machineAnswers("next").selectWords(toInclude=machineProposal.goodLetters.toSet, toExclude=machineProposal.badLetters.toSet),
-                                                    "last"->Dict(fromList=machineAnswers("last").all_words:::List(machineProposal.answer)))
+                                                    "last"->Dict(fromList=machineAnswers("last").allWords:::List(machineProposal.answer)))
                             val playerUpdate = Map("next"->playerAnswers("next"), 
-                                                   "last"->Dict(fromList=playerAnswers("last").all_words:::List(playerProposal.answer)))
+                                                   "last"->Dict(fromList=playerAnswers("last").allWords:::List(playerProposal.answer)))
                             clear()
-                            println("Historique des propositions :\n")
-                            println("JOUEUR:   MACHINE:")
-                            for (i<- 0 to machineUpdate("last").size-1) yield println(s"${Proposal(playerUpdate("last").all_words(i),correct)}   ${Proposal(machineUpdate("last").all_words(i), correct, hideMachine)}")
+                            println("Anciennes propositions:\n")
+                            println("   JOUEUR:   MACHINE:")
+                            for (i<- 0 to machineUpdate("last").size-1) yield println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}   ${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}")
                             println("")
                             make_proposal(retry-1, playerUpdate, machineUpdate, correct, hideMachine) 
                     }  

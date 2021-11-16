@@ -1,6 +1,7 @@
-[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\motus.scala:99:132 [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m99 |[0m    [33mdef[0m [36mmake_proposal[0m([36mretry[0m:[35mInt[0m, [36mplayerAnswers[0m:[35mMap[String,Dict][0m, [36mmachineAnswers[0m:[35mMap[String,Dict][0m, [36mcorrect[0m:[35mWord[0m, [36mhideMachine[0m:[35mBoolean[0m=True): [35mUnit[0m =[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                                                                                                                    [31m^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                                         Not found: True[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E007] Type Mismatch Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\motus.scala:134:94 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m134 |[0m                            ([31m0[0m to machineUpdate([31m"last"[0m).size-[31m1[0m).toList.foldLeft(List[[35mInt[0m]()) (([36mxs[0m:[35mList[Int][0m, [36mi[0m:[35mInt[0m)=> println([31ms"[0m${Proposal(playerUpdate([31m"last"[0m).allWords(i),correct)}[31m   [0m${Proposal(machineUpdate([31m"last"[0m).allWords(i), correct, hideMachine)}[31m"[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m    |                                                                                              [31m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    |                               Found:    ([1m[31mList[0m[1m[31m[[0m[1m[31mInt[0m[1m[31m][0m, Int) => Matchable[0m
+[0m[[0m[31merror[0m] [0m[0m    |                               Required: ([1m[32mMatchable[0m, Int) => Matchable[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
