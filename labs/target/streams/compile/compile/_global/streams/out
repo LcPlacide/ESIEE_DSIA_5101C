@@ -1,9 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m[31m-- [E161] Naming Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\util.scala:10:6 [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m10 |[0m  [33mdef[0m [36msum[0m([36mxs[0m: [35mList[Int][0m): [35mInt[0m = xs [33mmatch[0m[0m
-[0m[[0m[31merror[0m] [0m[0m   |  [31m^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m   |sum is already defined as [33mmethod[0m [35msum[0m in C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\math.scala[0m
-[0m[[0m[31merror[0m] [0m[0m[31m11 |[0m    [33mcase[0m y::ys => y+sum(ys)[0m
-[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m    [34m// Nil is the same as List(), but more idiomatic[0m
-[0m[[0m[31merror[0m] [0m[0m[31m13 |[0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\src\main\scala\fr\esiee\fpic\labs\motus.scala:133:4 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m133 |[0m    @main[0m
+[0m[[0m[31merror[0m] [0m[0m    |    [31m^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    |    @main annotation cannot be applied to [33mvalue[0m [35mmain_dict[0m[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m
 [0m[[0m[31merror[0m] [0m[0mone error found[0m

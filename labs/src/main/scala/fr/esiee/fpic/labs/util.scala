@@ -12,7 +12,6 @@ package fr.esiee.fpic.labs:
     // Nil is the same as List(), but more idiomatic
     case Nil => 0
 
-
   def lmul(xs: List[Int]): Int = xs match
     case y::ys => y*lmul(ys)
     case Nil => 1
