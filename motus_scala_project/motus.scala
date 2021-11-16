@@ -21,6 +21,12 @@ class Word(val str:String=""){
     def isExclude(toExclude:Set[(Char, Int)]): Boolean= 
         val wordSet = letterOrder.toSet.union(letters.toSet)
         toExclude.diff(wordSet)==toExclude
+
+    def contains(letters:Set[(Char, Int)]): Boolean =
+        val letterList = letters.toList
+        val occurence = (for (i<-0 to letterList.length-1) yield str.count(_==letterList(i)(0))>=letterList(i)(1))
+        occurence.toList.foldLeft(true)(_&_)
+
 }
 
 
@@ -29,7 +35,7 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
     val allWords = if it!=List() then (for (w<-it) yield Word(w)).toList else fromList
     val size = allWords.length
 
-    def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set()): Dict = 
+    def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int)]=Set()): Dict = 
         val sizeFilter = size match {
             case n:Int if n>0 => Dict(fromList=(for (w <- allWords; if w.length == size) yield w).toList)
             case _ => this
@@ -40,14 +46,19 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
             case _ => sizeFilter
         }
 
-        toExclude match {
+        val excludeFilter = toExclude match {
             case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- includeFilter.allWords; if w.isExclude(toExclude)) yield w).toList)
             case _ => includeFilter
         }
 
-    def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set()): Word = 
+        howMany match {
+            case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- excludeFilter.allWords; if w.contains(howMany)) yield w).toList)
+            case _ => excludeFilter
+        }
+
+    def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int)]=Set()): Word = 
         val random = new Random
-        val filter = selectWords(n, toInclude, toExclude).allWords
+        val filter = selectWords(n, toInclude, toExclude, howMany).allWords
         filter.length  match {
             case v:Int if v>0 => filter(random.nextInt(filter.length)) 
             case _ => Word()
@@ -80,6 +91,7 @@ class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
                                                     if color(x)==Console.RED then xs:::List(answer.letterOrder(x)) 
                                                     else if colox(x)==Console.YELLOW then xs:::List(answer.letters(x)) 
                                                     else xs )*/
+    val countMisplacedLetters = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length)
     val badLetters = answer.index.foldLeft(List[(Char,Int)]()) ( (xs:List[(Char,Int)], x:Int) => 
                                                                     if color(x)==Console.RED then xs 
                                                                     else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
@@ -135,7 +147,8 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
                         return()
                     case false =>
                         val machineUpdate = Map("next"->machineAnswers("next").selectWords(toInclude=machineProposal.goodLetters.toSet, 
-                                                                                            toExclude=machineProposal.badLetters.toSet),
+                                                                                            toExclude=machineProposal.badLetters.toSet,
+                                                                                            howMany=(for (c<-machineProposal.countMisplacedLetters ; if c(1)>1) yield c).toSet),
                                                 "last"->Dict(fromList=machineAnswers("last").allWords:::List(machineProposal.answer)))
                         val playerUpdate = Map("next"->playerAnswers("next"), 
                                                "last"->Dict(fromList=playerAnswers("last").allWords:::List(playerProposal.answer)))

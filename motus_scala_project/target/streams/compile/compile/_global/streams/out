@@ -1,0 +1,16 @@
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E008] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:26:46 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m26 |[0m        [33mval[0m [36moccurence[0m = ([33mfor[0m (i<-[31m0[0m to letters.length-[31m1[0m) [33myield[0m str.count(_==letters(i)([31m0[0m))>=letters(i)([31m1[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                      [31m^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                        value length is not a member of Set[(Char, Int)][0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E007] Type Mismatch Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:26:83 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m26 |[0m        [33mval[0m [36moccurence[0m = ([33mfor[0m (i<-[31m0[0m to letters.length-[31m1[0m) [33myield[0m str.count(_==letters(i)([31m0[0m))>=letters(i)([31m1[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                                                   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                   Found:    ([1m[31mi[0m[1m[31m [0m[1m[31m:[0m Int)[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                   Required: ([1m[32mChar[0m[1m[32m,[0m Int)[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E007] Type Mismatch Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:26:99 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m26 |[0m        [33mval[0m [36moccurence[0m = ([33mfor[0m (i<-[31m0[0m to letters.length-[31m1[0m) [33myield[0m str.count(_==letters(i)([31m0[0m))>=letters(i)([31m1[0m))[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                                                                   [31m^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                   Found:    ([1m[31mi[0m[1m[31m [0m[1m[31m:[0m Int)[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                   Required: ([1m[32mChar[0m[1m[32m,[0m Int)[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
+[0m[[0m[31merror[0m] [0m[0mthree errors found[0m
