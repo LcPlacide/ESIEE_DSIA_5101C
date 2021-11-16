@@ -23,8 +23,7 @@ class Word(val str:String=""){
         toExclude.diff(wordSet)==toExclude
 
     def contains(letters:Set[(Char, Int)]): Boolean =
-        val letterList = letters.toList
-        val occurence = (for (i<-0 to letterList.length-1) yield str.count(_==letterList(i)(0))>=letterList(i)(1))
+        val occurence = (for (letter<-letters) yield str.count(_==letter(0))>=letter(1))
         occurence.toList.foldLeft(true)(_&_)
 
 }

@@ -9,9 +9,9 @@
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(onFailure loadFailed, None, None)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(loadp, None, None)[0m
 [0m[[0m[0minfo[0m] [0m[0mwelcome to sbt 1.5.5 (Oracle Corporation Java 1.8.0_251)[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.defaultLoad until apply took 640.8904ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: plugins took 79.2795ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: defsScala took 0.2906ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.defaultLoad until apply took 786.2141ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: plugins took 133.8442ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: defsScala took 0.5974ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Found non-root projects [0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project, returning: ()[0m
@@ -28,26 +28,26 @@
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))[0m
 [0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m
-[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 17.0176 ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m              Load.resolveProject(motus_scala_project-build) took 47.0526ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m            Load.loadTransitive: finalizeProject(Project(id motus_scala_project-build, base: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project, plugins: List(<none>))) took 90.4595ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 28.0965 ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m              Load.resolveProject(motus_scala_project-build) took 75.9322ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m            Load.loadTransitive: finalizeProject(Project(id motus_scala_project-build, base: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project, plugins: List(<none>))) took 136.3085ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project, returning: (motus_scala_project-build)[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: loadedProjectsRaw took 111.2346ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: cleanEvalClasses took 0.2564ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m        Load.loadUnit(file:/C:/Users/lcpla/Documents/ESIEE_DSIA_5101C/motus_scala_project/project/, ...) took 196.1516ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: load took 334.773ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: resolveProjects took 6.8663ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: finalTransforms took 76.7551ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: config.delegates took 10.6056ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: Def.make(settings)... took 645.7298ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: structureIndex took 82.449ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: mkStreams took 1.7181ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: loadedProjectsRaw took 162.5306ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m          Load.loadUnit: cleanEvalClasses took 0.4992ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m        Load.loadUnit(file:/C:/Users/lcpla/Documents/ESIEE_DSIA_5101C/motus_scala_project/project/, ...) took 308.3801ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: load took 566.8756ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: resolveProjects took 7.7495ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: finalTransforms took 60.2721ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: config.delegates took 10.073ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: Def.make(settings)... took 511.3633ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: structureIndex took 101.6302ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.apply: mkStreams took 1.4132ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading project definition from C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\project[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunning task... Cancel: Signal, check cycles: false, forcegc: true[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: plugins took 2149.5088ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: defsScala took 0.0025ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: plugins took 2257.3585ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: defsScala took 0.0027ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Scanning directory C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: mkEval took 7.8068ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadUnit: mkEval took 6.3847ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Found root project labs w/ remaining [0m
 [0m[[0m[0mdebug[0m] [0m[0mdeducing auto plugins based on known facts Set(Atom(sbt.plugins.CorePlugin)) and clauses Clauses(Clause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.IvyPlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.ScriptedPlugin),Set(Atom(sbt.plugins.JvmPlugin)))[0m
@@ -62,21 +62,21 @@
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.CorePlugin),Set(Atom(sbt.plugins.Giter8TemplatePlugin)))[0m
 [0m[[0m[0mdebug[0m] [0m[0mClause(Atom(sbt.plugins.JvmPlugin),Set(Atom(sbt.plugins.MiniDependencyTreePlugin))))[0m
 [0m[[0m[0mdebug[0m] [0m[0m  :: deduced result: Matched(sbt.plugins.CorePlugin,sbt.plugins.Giter8TemplatePlugin,sbt.plugins.IvyPlugin,sbt.plugins.JvmPlugin,sbt.plugins.MiniDependencyTreePlugin,sbt.plugins.JUnitXmlReportPlugin,sbt.plugins.SemanticdbPlugin)[0m
-[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 1.6625 ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mPlugins.deducer#function took 1.9705 ms[0m
 [0m[[0m[0minfo[0m] [0m[0mloading settings for project labs from build.sbt ...[0m
-[0m[[0m[0mdebug[0m] [0m[0m        Load.resolveProject(labs) took 5.1626ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m      Load.loadTransitive: finalizeProject(Project(id labs, base: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project, plugins: List(<none>))) took 7.7335ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m        Load.resolveProject(labs) took 3.9093ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m      Load.loadTransitive: finalizeProject(Project(id labs, base: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project, plugins: List(<none>))) took 6.8574ms[0m
 [0m[[0m[0mdebug[0m] [0m[0m[Loading] Done in C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project, returning: (labs)[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: loadedProjectsRaw took 156.9756ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: cleanEvalClasses took 3.9137ms[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Load.loadUnit(file:/C:/Users/lcpla/Documents/ESIEE_DSIA_5101C/motus_scala_project/, ...) took 2311.5493ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: load took 2331.8692ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: resolveProjects took 0.0767ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: finalTransforms took 8.7956ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: config.delegates took 0.4287ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: Def.make(settings)... took 80.5334ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: structureIndex took 25.1176ms[0m
-[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: mkStreams took 0.0019ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: loadedProjectsRaw took 155.2759ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m    Load.loadUnit: cleanEvalClasses took 4.8883ms[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Load.loadUnit(file:/C:/Users/lcpla/Documents/ESIEE_DSIA_5101C/motus_scala_project/, ...) took 2418.9421ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: load took 2455.6237ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: resolveProjects took 0.077ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: finalTransforms took 7.9326ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: config.delegates took 0.2599ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: Def.make(settings)... took 73.0849ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: structureIndex took 29.3925ms[0m
+[0m[[0m[0mdebug[0m] [0m[0mLoad.apply: mkStreams took 0.0024ms[0m
 [0m[[0m[0minfo[0m] [0m[0mset current project to labs (in build file:/C:/Users/lcpla/Documents/ESIEE_DSIA_5101C/motus_scala_project/)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(sbtPopOnFailure, None, None)[0m
 [0m[[0m[0mdebug[0m] [0m[0m> Exec(resumeFromFailure, None, None)[0m

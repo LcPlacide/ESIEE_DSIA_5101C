@@ -22,11 +22,11 @@
 [0m[[0m[0mdebug[0m] [0m[0mcompilation cycle 1[0m
 [0m[[0m[0minfo[0m] [0m[0mcompiling 1 Scala source to C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\target\scala-3.0.2\classes ...[0m
 [0m[[0m[0mdebug[0m] [0m[0mReturning already retrieved and compiled bridge: C:\Users\lcpla\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-sbt-bridge\3.0.2\scala3-sbt-bridge-3.0.2.jar.[0m
-[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 43bd1c for Scala Compiler version 3.0.2[0m
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] Running cached compiler 1faef0 for Scala Compiler version 3.0.2[0m
 [0m[[0m[0mdebug[0m] [0m[0m[zinc] The Scala compiler is invoked with:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-bootclasspath[0m
 [0m[[0m[0mdebug[0m] [0m[0m	C:\Program Files (x86)\Java\jre1.8.0_251\lib\resources.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\rt.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\sunrsasign.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\jsse.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\jce.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\charsets.jar;C:\Program Files (x86)\Java\jre1.8.0_251\lib\jfr.jar;C:\Program Files (x86)\Java\jre1.8.0_251\classes;C:\Users\lcpla\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.0.2\scala3-library_3-3.0.2.jar;C:\Users\lcpla\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.6\scala-library-2.13.6.jar[0m
 [0m[[0m[0mdebug[0m] [0m[0m	-classpath[0m
 [0m[[0m[0mdebug[0m] [0m[0m	C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\target\scala-3.0.2\classes[0m
-[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 4.0368212 s[0m
+[0m[[0m[0mdebug[0m] [0m[0mScala compilation took 4.5100494 s[0m
 [0m[[0m[0mdebug[0m] [0m[0mdone compiling[0m
