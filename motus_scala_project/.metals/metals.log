@@ -1,0 +1,17 @@
+[0m2021.11.16 19:01:16 INFO  Started: Metals version 0.10.9 in workspace 'C:\Users\lcpla\Documents\motus_scala_project' for client Visual Studio Code 1.62.2.[0m
+[0m2021.11.16 19:01:16 INFO  time: initialize in 0.53s[0m
+[0m2021.11.16 19:01:17 WARN  Build server is not auto-connectable.[0m
+[0m2021.11.16 19:01:19 WARN  no build target for: C:\Users\lcpla\Documents\motus_scala_project\motus.scala[0m
+[0m2021.11.16 19:01:23 INFO  no build target: using presentation compiler with only scala-library: 3.1.0[0m
+[0m2021.11.16 19:01:29 INFO  time: code lens generation in 8.79s[0m
+[0m2021.11.16 19:01:29 INFO  time: code lens generation in 8.8s[0m
+[0m2021.11.16 19:06:04 WARN  no build target for: C:\Users\lcpla\Documents\motus_scala_project\motus.scala[0m
+nov. 16, 2021 7:06:19 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+AVERTISSEMENT: Unmatched cancel notification for request id 564
+[0m2021.11.16 19:06:20 WARN  no build target for: C:\Users\lcpla\Documents\motus_scala_project\motus.scala[0m
+[0m2021.11.16 19:08:20 INFO  skipping build import with status 'Requested'[0m
+[0m2021.11.16 19:08:21 INFO  shutting down Metals[0m
+[0m2021.11.16 19:09:16 INFO  Started: Metals version 0.10.9 in workspace 'C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project' for client Visual Studio Code 1.62.2.[0m
+[0m2021.11.16 19:09:17 INFO  time: initialize in 0.64s[0m
+[0m2021.11.16 19:09:17 WARN  Build server is not auto-connectable.[0m
+[0m2021.11.16 19:09:17 WARN  no build target for: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala[0m

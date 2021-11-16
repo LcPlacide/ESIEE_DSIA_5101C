@@ -1,0 +1,59 @@
+[0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\target\scala-3.0.2\classes.bak[0m
+[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	start_game.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Word$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Proposal$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	motus$package$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Dict$.tasty[0m
+[0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\labs\target\scala-3.0.2\classes.bak[0m
