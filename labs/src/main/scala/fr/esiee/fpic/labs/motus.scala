@@ -1,4 +1,4 @@
-package fr.esiee.fpic.labs:
+//package fr.esiee.fpic.labs:
     import scala.util.Random
     import scala.io.StdIn.readLine
     
@@ -73,8 +73,13 @@ package fr.esiee.fpic.labs:
         val isCorrect = answer.str == correct.str
         val goodLetters = for (i<-answer.index ; if color(i)!=Console.BLUE) yield(if color(i)==Console.RED then answer.letterOrder(i) else answer.letters(i))
         //answer.index.foldLeft(List[(Char,Int)]()) ((xs:List[(Char,Int)], x:Int)=> if color(x)==Console.RED then xs:::List(answer.letterOrder(x)) else if colox(x)==Console.YELLOW then xs:::List(answer.letters(x)) else xs)
-        val badLetters = for (i<-answer.index ; if color(i)!=Console.RED) yield(if !(correct.str.contains(answer.str(i))) then answer.letters(i) else answer.letterOrder(i))
-        //answer.index.foldLeft(List[(Char,Int)]()) ((xs:List[(Char,Int)], x:Int)=> if color(x)==Console.RED then xs else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) else xs:::List(answer.letterOrder(x)))
+        val badLetters = answer.index.foldLeft(List[(Char,Int)]()) ( (xs:List[(Char,Int)], x:Int) => 
+                                                                        if color(x)==Console.RED then xs 
+                                                                        else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
+                                                                        else if (for (o<-answer.letterOrder ; if o(0)==answer.str(x) && color(o(1))==Console.YELLOW) yield(o)).length==0 then
+                                                                            xs:::(for (i<-answer.index ; if color(i)!=Console.RED) yield(answer.str(x),i)).toList
+                                                                        else xs:::List(answer.letterOrder(x)) )
+        //println(badLetters)
 
         def evalProposal():List[String] = 
             answer.index.foldLeft(List[String]())((xs:List[String], x:Int)=> xs:::List(this.setColor(x)))
@@ -136,9 +141,9 @@ package fr.esiee.fpic.labs:
     val mainDict = Dict("ods8.txt")
     @main
     def start_game() = 
-        val retry = 7
+        val retry = 6
         val wordSize = 7
-        val hideMachine = true
+        val hideMachine = false
         val wordToFind = mainDict.getRandomWord(wordSize)
         val playerAnswers = Map("next"->mainDict, "last"->Dict())
         val machineAnswers = Map("next"->mainDict.selectWords(wordSize, wordToFind.letterOrder.slice(0,1).toSet), "last"->Dict())
