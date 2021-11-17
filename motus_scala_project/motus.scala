@@ -1,7 +1,6 @@
 import scala.util.Random
 import scala.io.StdIn.readLine
 
-
 class Word(val str:String=""){
     val length = str.length
     val index = (0 to length-1).toList
@@ -22,8 +21,9 @@ class Word(val str:String=""){
         val wordSet = letterOrder.toSet.union(letters.toSet)
         toExclude.diff(wordSet)==toExclude
 
-    def contains(letters:Set[(Char, Int)]): Boolean =
-        val occurence = (for (letter<-letters) yield str.count(_==letter(0))>=letter(1))
+    def contains(letters:Set[(Char, Int, String)]): Boolean =
+        val occurence = for (letter<-letters) yield(if letter(2).equals(">=") then str.count(_==letter(0))>=letter(1) 
+                                                    else str.count(_==letter(0))<letter(1))
         occurence.toList.foldLeft(true)(_&_)
 
 }
@@ -34,7 +34,7 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
     val allWords = if it!=List() then (for (w<-it) yield Word(w)).toList else fromList
     val size = allWords.length
 
-    def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int)]=Set()): Dict = 
+    def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Dict = 
         val sizeFilter = size match {
             case n:Int if n>0 => Dict(fromList=(for (w <- allWords; if w.length == size) yield w).toList)
             case _ => this
@@ -51,11 +51,11 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
         }
 
         howMany match {
-            case s:Set[(Char, Int)]  if s!=Set() => Dict(fromList=(for (w <- excludeFilter.allWords; if w.contains(howMany)) yield w).toList)
+            case s:Set[(Char, Int, String)]  if s!=Set() => Dict(fromList=(for (w <- excludeFilter.allWords; if w.contains(howMany)) yield w).toList)
             case _ => excludeFilter
         }
 
-    def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int)]=Set()): Word = 
+    def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Word = 
         val random = new Random
         val filter = selectWords(n, toInclude, toExclude, howMany).allWords
         filter.length  match {
@@ -90,7 +90,9 @@ class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
                                                     if color(x)==Console.RED then xs:::List(answer.letterOrder(x)) 
                                                     else if colox(x)==Console.YELLOW then xs:::List(answer.letters(x)) 
                                                     else xs )*/
-    val countMisplacedLetters = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length)
+    val minLetterCount = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length, ">=")
+    val maxLetterCount = for (t1<-minLetterCount ; maxCount = (for (t2<-answer.letterOrder ; if t2(0)==t1(0)) yield t2).length ; if maxCount>t1(1)) yield (t1(0), maxCount, "<")
+    val countMisplacedLetters = for (t<-minLetterCount++maxLetterCount ; if t(1)>1) yield t
     val badLetters = answer.index.foldLeft(List[(Char,Int)]()) ( (xs:List[(Char,Int)], x:Int) => 
                                                                     if color(x)==Console.RED then xs 
                                                                     else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
@@ -147,7 +149,7 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
                     case false =>
                         val machineUpdate = Map("next"->machineAnswers("next").selectWords(toInclude=machineProposal.goodLetters.toSet, 
                                                                                             toExclude=machineProposal.badLetters.toSet,
-                                                                                            howMany=(for (c<-machineProposal.countMisplacedLetters ; if c(1)>1) yield c).toSet),
+                                                                                            howMany=machineProposal.countMisplacedLetters.toSet),
                                                 "last"->Dict(fromList=machineAnswers("last").allWords:::List(machineProposal.answer)))
                         val playerUpdate = Map("next"->playerAnswers("next"), 
                                                "last"->Dict(fromList=playerAnswers("last").allWords:::List(playerProposal.answer)))
