@@ -1,6 +1,10 @@
-[0m[[0m[33mwarn[0m] [0m[0m[33m-- Warning: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:54:17 [0m[0m
-[0m[[0m[33mwarn[0m] [0m[0m[33m54 |[0m            [33mcase[0m s:Set[(Char, Int)]  [33mif[0m s!=Set() => Dict(fromList=([33mfor[0m (w <- excludeFilter.allWords; [33mif[0m w.contains(howMany)) [33myield[0m w).toList)[0m
-[0m[[0m[33mwarn[0m] [0m[0m   |                 [33m^[0m[0m
-[0m[[0m[33mwarn[0m] [0m[0m   |         the type test for Set[(Char, Int)] cannot be checked at runtime[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E040] Syntax Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:37:60 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m    [33mval[0m [36mallWords[0m = [33mif[0m it!=List() [33mthen[0m it.map(Word(_).toList [33melse[0m fromList[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                                            [31m^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                          ')' expected, but 'else' found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E008] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:37:53 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m    [33mval[0m [36mallWords[0m = [33mif[0m it!=List() [33mthen[0m it.map(Word(_).toList [33melse[0m fromList[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                             [31m^^^^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m   |                                    value toList is not a member of Word[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m

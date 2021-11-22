@@ -24,14 +24,17 @@ class Word(val str:String=""){
     def contains(letters:Set[(Char, Int, String)]): Boolean =
         val occurence = for (letter<-letters) yield(if letter(2).equals(">=") then str.count(_==letter(0))>=letter(1) 
                                                     else str.count(_==letter(0))<letter(1))
-        occurence.toList.foldLeft(true)(_&_)
+        /*letters.foldLeft(List(true)) ((occ:List[Boolean], letter:(Char, Int, String))=> 
+                                        if letter(2).equals(">=") then occ:::List(str.count(_==letter(0))>=letter(1))
+                                        else occ:::List(str.count(_==letter(0))<letter(1)))*/
+        occurence.foldLeft(true)(_&_)
 
 }
 
 
 class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8"){
     val it = if fromFile!="" then scala.io.Source.fromFile(fromFile, enc).getLines.toList else List() 
-    val allWords = if it!=List() then (for (w<-it) yield Word(w)).toList else fromList
+    val allWords = if it!=List() then it.map(Word(_)).toList else fromList
     val size = allWords.length
 
     def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Dict = 
@@ -154,9 +157,8 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
                         val playerUpdate = Map("next"->playerAnswers("next"), 
                                                "last"->Dict(fromList=playerAnswers("last").allWords:::List(playerProposal.answer)))
                         clear()
-                        println("Anciennes propositions:\n")
-                        println("   JOUEUR:   MACHINE:")
-                        for (i<- 0 to machineUpdate("last").size-1) yield println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}   ${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}")
+                        (0 to machineUpdate("last").size-1).foldLeft(println("Anciennes propositions:\n\n   JOUEUR:   MACHINE:")) ((xs:Unit, i:Int) => 
+                            println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}   ${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}"))
                         println("")
                         make_proposal(retry-1, playerUpdate, machineUpdate, correct, hideMachine) 
                 }  
@@ -171,5 +173,5 @@ def start_game() =
     val wordToFind = mainDict.getRandomWord(wordSize)
     val playerAnswers = Map("next"->mainDict, "last"->Dict())
     val machineAnswers = Map("next"->mainDict.selectWords(wordSize, wordToFind.letterOrder.slice(0,1).toSet), "last"->Dict())
-    println(s"Mot de ${wordToFind.length} lettres : ${wordToFind.mask}")
+    println(s"\nMot de ${wordToFind.length} lettres : ${wordToFind.mask}\n")
     make_proposal(retry, playerAnswers, machineAnswers, wordToFind, hideMachine)
