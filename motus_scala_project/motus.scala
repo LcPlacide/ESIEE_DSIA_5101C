@@ -4,12 +4,9 @@ import scala.io.StdIn.readLine
 class Word(val str:String=""){
     val length = str.length
     val index = (0 to length-1).toList
-    val letterOrder = for (i<-index) yield (str(i),i) 
-    //index.foldLeft(List[(Char,Int)]()) ((xs:List[(Char, Int)], x:Int)=> xs:::List((str(x),x)))
-    val letters = for (i<-index) yield (str(i),-1) 
-    //index.foldLeft(List[(Char,Int)]()) ((xs:List[(Char, Int)], x:Int)=> xs:::List((str(x),-1)))
-    val mask = (for (i<-index) yield (if i==0 then str(i) else "*")).foldLeft("")(_+_)
-    //index.foldLeft(List[String]()) ((xs:List[Matchable], x:Int)=> if x==0 then xs:::List(str(x)) else xs:::List('*')).foldLeft("")(_+_)
+    val (letterOrder, letters, mask) = index.foldLeft((List(), List(), "")) 
+        ( (t:(List[(Char, Int)], List[(Char, Int)], String), x:Int) => 
+            ( t(0):::List((str(x),x)), t(1):::List((str(x),-1)), if x==0 then t(2)+str(x) else t(2)+"*" ) )
 
     override def toString: String = str
 
@@ -22,12 +19,8 @@ class Word(val str:String=""){
         toExclude.diff(wordSet)==toExclude
 
     def contains(letters:Set[(Char, Int, String)]): Boolean =
-        val occurence = for (letter<-letters) yield(if letter(2).equals(">=") then str.count(_==letter(0))>=letter(1) 
-                                                    else str.count(_==letter(0))<letter(1))
-        /*letters.foldLeft(List(true)) ((occ:List[Boolean], letter:(Char, Int, String))=> 
-                                        if letter(2).equals(">=") then occ:::List(str.count(_==letter(0))>=letter(1))
-                                        else occ:::List(str.count(_==letter(0))<letter(1)))*/
-        occurence.foldLeft(true)(_&_)
+        letters.foldLeft(true) ( (occ:Boolean, letter:(Char, Int, String)) => 
+            if letter(2).equals(">=") then occ&(str.count(_==letter(0))>=letter(1)) else occ&(str.count(_==letter(0))<letter(1)) )
 
 }
 
@@ -36,6 +29,9 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
     val it = if fromFile!="" then scala.io.Source.fromFile(fromFile, enc).getLines.toList else List() 
     val allWords = if it!=List() then it.map(Word(_)).toList else fromList
     val size = allWords.length
+
+    def addWord(toAdd:Word): Dict = 
+        return Dict(fromList=allWords:::List(toAdd), enc=enc)
 
     def selectWords(size:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Dict = 
         val sizeFilter = size match {
@@ -61,16 +57,14 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
     def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Word = 
         val random = new Random
         val filter = selectWords(n, toInclude, toExclude, howMany).allWords
-        filter.length  match {
+        filter.length  match
             case v:Int if v>0 => filter(random.nextInt(filter.length)) 
             case _ => Word()
-        }
 
     def isValidWord(myWord:String): Boolean =
-        allWords.find(_.str==myWord) match {
+        allWords.find(_.str==myWord) match
             case Some(_) => true
             case None => false
-        }
 
     def getSpecificWord(str:String): Word =
         isValidWord(str) match
@@ -83,25 +77,18 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
 
 class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
     val color = this.evalProposal()
-    val coloredAnswer = for (i<-answer.index) yield(if hide then s"${color(i)}${answer.mask(i)}" else s"${color(i)}${answer.str(i)}")
-    /*answer.index.foldLeft(List[String]()) ((xs:List[String], x:Int)=> 
-                                                    if hide then xs:::List(s"${color(x)}${answer.mask(x)}") 
-                                                    else xs:::List(s"${color(x)}${answer.str(x)}"))*/
+    val coloredAnswer = answer.index.foldLeft("") ( (cs:String, x:Int) => s"${cs}${color(x)}${if hide then answer.mask(x) else answer.str(x)}" )          
     val isCorrect = answer.str == correct.str
     val goodLetters = for (i<-answer.index ; if color(i)!=Console.BLUE) yield(if color(i)==Console.RED then answer.letterOrder(i) else answer.letters(i))
-    /*answer.index.foldLeft(List[(Char,Int)]()) ( (xs:List[(Char,Int)], x:Int)=> 
-                                                    if color(x)==Console.RED then xs:::List(answer.letterOrder(x)) 
-                                                    else if colox(x)==Console.YELLOW then xs:::List(answer.letters(x)) 
-                                                    else xs )*/
     val minLetterCount = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length, ">=")
     val maxLetterCount = for (t1<-minLetterCount ; maxCount = (for (t2<-answer.letterOrder ; if t2(0)==t1(0)) yield t2).length ; if maxCount>t1(1)) yield (t1(0), maxCount, "<")
     val countMisplacedLetters = for (t<-minLetterCount++maxLetterCount ; if t(1)>1) yield t
-    val badLetters = answer.index.foldLeft(List[(Char,Int)]()) ( (xs:List[(Char,Int)], x:Int) => 
-                                                                    if color(x)==Console.RED then xs 
-                                                                    else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
-                                                                    else if (for (o<-answer.letterOrder ; if o(0)==answer.str(x) && color(o(1))==Console.YELLOW) yield(o)).length==0 then
-                                                                        xs:::(for (i<-answer.index ; if color(i)!=Console.RED) yield(answer.str(x),i)).toList
-                                                                    else xs:::List(answer.letterOrder(x)) )
+    val badLetters = answer.index.foldLeft(List()) ( (xs:List[(Char,Int)], x:Int) => 
+                                                            if color(x)==Console.RED then xs 
+                                                            else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
+                                                            else if (for (o<-answer.letterOrder ; if o(0)==answer.str(x) && color(o(1))==Console.YELLOW) yield(o)).length==0 then
+                                                                xs:::(for (i<-answer.index ; if color(i)!=Console.RED) yield(answer.str(x),i)).toList
+                                                            else xs:::List(answer.letterOrder(x)) )
 
     def evalProposal():List[String] = 
         answer.index.foldLeft(List[String]())((xs:List[String], x:Int)=> xs:::List(this.setColor(x)))
@@ -112,12 +99,10 @@ class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
         if letter == correct.str(i) then Console.RED 
         else if correct.str.contains(letter) then
             val sameLetters = for (j <- answer.index; if answer.str(j)==letter & (answer.str(j)==correct.str(j) | j<i)) yield j
-            //answer.index.foldLeft(List[Int]()) ((xs:List[Int], j:Int)=> if answer.str(j)==letter & (answer.str(j)==correct.str(j) | j<i) then xs:::List(j) else xs)
             if countLetter(correct.str)-sameLetters.length<=0 then Console.BLUE else Console.YELLOW 
         else Console.BLUE
 
-    override def toString: String =
-        coloredAnswer.toList.foldLeft("")(_+_)+Console.RESET
+    override def toString: String = coloredAnswer+Console.RESET
 }
 
 
@@ -131,7 +116,7 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
     }
 
     if currentPlayerAnswer=="Vous avez perdu." then 
-        println(s"Tentative maximal atteinte. Le mot est ${correct.str}. DEFAITE...")
+        println(s"Tentative maximal atteinte. Le mot est ${correct.str}. DEFAITE...\n\n")
         return()
     else if playerAnswers("next").isValidWord(currentPlayerAnswer)==false then 
         println(s"${currentPlayerAnswer} n'est pas dans le dictionnaire du jeu. Entrer autre chose.")
@@ -142,26 +127,25 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
     else 
         val playerProposal =  Proposal(playerAnswers("next").getSpecificWord(currentPlayerAnswer), correct)
         playerProposal.isCorrect match
-            case true => println(s"\n\nLe mot est bien ${playerProposal}. VICTOIRE!!!")
+            case true => println(s"\n\nLe mot est bien ${playerProposal}. VICTOIRE!!!\n\n")
                 return()
             case false => 
                 val machineProposal = Proposal(machineAnswers("next").getRandomWord(), correct)
-                machineProposal.isCorrect match {
-                    case true => println(s"\n\nLa proposition ${machineProposal} de l'ordinateur est correcte. DEFAITE...")
+                machineProposal.isCorrect match 
+                    case true => println(s"\n\nLa proposition ${machineProposal} de l'ordinateur est correcte. DEFAITE...\n\n")
                         return()
                     case false =>
                         val machineUpdate = Map("next"->machineAnswers("next").selectWords(toInclude=machineProposal.goodLetters.toSet, 
                                                                                             toExclude=machineProposal.badLetters.toSet,
                                                                                             howMany=machineProposal.countMisplacedLetters.toSet),
-                                                "last"->Dict(fromList=machineAnswers("last").allWords:::List(machineProposal.answer)))
+                                                "last"->machineAnswers("last").addWord(machineProposal.answer))
                         val playerUpdate = Map("next"->playerAnswers("next"), 
-                                               "last"->Dict(fromList=playerAnswers("last").allWords:::List(playerProposal.answer)))
+                                               "last"->playerAnswers("last").addWord(playerProposal.answer))
                         clear()
                         (0 to machineUpdate("last").size-1).foldLeft(println("Anciennes propositions:\n\n   JOUEUR:   MACHINE:")) ((xs:Unit, i:Int) => 
                             println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}   ${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}"))
                         println("")
                         make_proposal(retry-1, playerUpdate, machineUpdate, correct, hideMachine) 
-                }  
 
 
 val mainDict = Dict("ods8.txt")
@@ -170,8 +154,8 @@ def start_game() =
     val retry = 6
     val wordSize = 7
     val hideMachine = false
-    val wordToFind = mainDict.getRandomWord(wordSize)
+    val solution = mainDict.getRandomWord(wordSize)
     val playerAnswers = Map("next"->mainDict, "last"->Dict())
-    val machineAnswers = Map("next"->mainDict.selectWords(wordSize, wordToFind.letterOrder.slice(0,1).toSet), "last"->Dict())
-    println(s"\nMot de ${wordToFind.length} lettres : ${wordToFind.mask}\n")
-    make_proposal(retry, playerAnswers, machineAnswers, wordToFind, hideMachine)
+    val machineAnswers = Map("next"->mainDict.selectWords(wordSize, solution.letterOrder.slice(0,1).toSet), "last"->Dict())
+    println(s"\nMot de ${solution.length} lettres : ${solution.mask}\n")
+    make_proposal(retry, playerAnswers, machineAnswers, solution, hideMachine)

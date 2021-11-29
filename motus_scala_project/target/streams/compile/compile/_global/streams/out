@@ -1,10 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m[31m-- [E040] Syntax Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:37:60 [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m    [33mval[0m [36mallWords[0m = [33mif[0m it!=List() [33mthen[0m it.map(Word(_).toList [33melse[0m fromList[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                                            [31m^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                          ')' expected, but 'else' found[0m
-[0m[[0m[31merror[0m] [0m[0m[31m-- [E008] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:37:53 [0m[0m
-[0m[[0m[31merror[0m] [0m[0m[31m37 |[0m    [33mval[0m [36mallWords[0m = [33mif[0m it!=List() [33mthen[0m it.map(Word(_).toList [33melse[0m fromList[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                             [31m^^^^^^^^^^^^^^[0m[0m
-[0m[[0m[31merror[0m] [0m[0m   |                                    value toList is not a member of Word[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
-[0m[[0m[31merror[0m] [0m[0mtwo errors found[0m
+[0m[[0m[31merror[0m] [0m[0m[31m-- [E006] Not Found Error: C:\Users\lcpla\Documents\ESIEE_DSIA_5101C\motus_scala_project\motus.scala:168:68 [0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m168 |[0m    [33mval[0m [36mmachineAnswers[0m = Map([31m"next"[0m->mainDict.selectWords(wordSize, solutipn.letterOrder.slice([31m0[0m,[31m1[0m).toSet), [31m"last"[0m->Dict())[0m
+[0m[[0m[31merror[0m] [0m[0m    |                                                                    [31m^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    |                                                   Not found: solutipn[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
