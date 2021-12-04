@@ -1,5 +1,6 @@
 import scala.util.Random
 import scala.io.StdIn.readLine
+import math.max
 
 class Word(val str:String=""){
     val length = str.length
@@ -54,7 +55,7 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
             case _ => excludeFilter
         }
 
-    def getRandomWord(n:Int=7, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Word = 
+    def getRandomWord(n:Int=0, toInclude:Set[(Char, Int)]=Set(), toExclude:Set[(Char, Int)]=Set(), howMany:Set[(Char, Int, String)]=Set()): Word = 
         val random = new Random
         val filter = selectWords(n, toInclude, toExclude, howMany).allWords
         filter.length  match
@@ -111,28 +112,28 @@ def clear() = print("\u001b[2J\n")
 
 def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[String,Dict], correct:Word, hideMachine:Boolean=true): Unit =
     val currentPlayerAnswer = retry match {
-        case r: Int if r>=0 => readLine(s"Votre proposition ${(playerAnswers("last").size+1)} sur ${(playerAnswers("last").size+retry)} ? ").toUpperCase()
-        case _ => "Vous avez perdu."
+        case r: Int if r>0 => readLine(s"Your proposal ${(playerAnswers("last").size+1)} on ${(playerAnswers("last").size+retry)} ? ").toUpperCase()
+        case _ => "You lost."
     }
 
-    if currentPlayerAnswer=="Vous avez perdu." then 
-        println(s"Tentative maximal atteinte. Le mot est ${correct.str}. DEFAITE...\n\n")
+    if currentPlayerAnswer=="You lost." then 
+        println(s"No more trials available. The word was ${correct.str}. YOU LOST...\n\n")
         return()
     else if playerAnswers("next").isValidWord(currentPlayerAnswer)==false then 
-        println(s"${currentPlayerAnswer} n'est pas dans le dictionnaire du jeu. Entrer autre chose.")
+        println(s"${currentPlayerAnswer} is not in the dictionnary of the game. Enter something else.")
         make_proposal(retry, playerAnswers, machineAnswers, correct, hideMachine)
     else if currentPlayerAnswer.length != correct.length then
-        println(s"${currentPlayerAnswer} n'est pas de ${correct.length} lettres. Entrer un mot de cette longueur.") 
+        println(s"${currentPlayerAnswer} is too long or too short (${correct.length}-letter word required). Enter something else.") 
         make_proposal(retry, playerAnswers, machineAnswers, correct, hideMachine)
     else 
         val playerProposal =  Proposal(playerAnswers("next").getSpecificWord(currentPlayerAnswer), correct)
         playerProposal.isCorrect match
-            case true => println(s"\n\nLe mot est bien ${playerProposal}. VICTOIRE!!!\n\n")
+            case true => println(s"\n\nYou found the good word ${playerProposal}. YOU WIN!!!\n\n")
                 return()
             case false => 
                 val machineProposal = Proposal(machineAnswers("next").getRandomWord(), correct)
                 machineProposal.isCorrect match 
-                    case true => println(s"\n\nLa proposition ${machineProposal} de l'ordinateur est correcte. DEFAITE...\n\n")
+                    case true => println(s"\n\nThe AI found the good word ${machineProposal}. YOU LOST...\n\n")
                         return()
                     case false =>
                         val machineUpdate = Map("next"->machineAnswers("next").selectWords(toInclude=machineProposal.goodLetters.toSet, 
@@ -142,8 +143,9 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
                         val playerUpdate = Map("next"->playerAnswers("next"), 
                                                "last"->playerAnswers("last").addWord(playerProposal.answer))
                         clear()
-                        (0 to machineUpdate("last").size-1).foldLeft(println("Anciennes propositions:\n\n   JOUEUR:   MACHINE:")) ((xs:Unit, i:Int) => 
-                            println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}   ${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}"))
+                        val sep = max(machineProposal.answer.length, "PLAYER:".length)
+                        (0 to machineUpdate("last").size-1).foldLeft(println(s"Previous proposals:\n\n   PLAYER:${" "*(3+max(0,sep-"PLAYER:".length))}MACHINE:")) ((xs:Unit, i:Int) => 
+                            println(s"${i+1}: ${Proposal(playerUpdate("last").allWords(i),correct)}${" "*(3+max(0,sep-machineProposal.answer.length))}${Proposal(machineUpdate("last").allWords(i), correct, hideMachine)}"))
                         println("")
                         make_proposal(retry-1, playerUpdate, machineUpdate, correct, hideMachine) 
 
@@ -156,6 +158,6 @@ def start_game() =
     val hideMachine = false
     val solution = mainDict.getRandomWord(wordSize)
     val playerAnswers = Map("next"->mainDict, "last"->Dict())
-    val machineAnswers = Map("next"->mainDict.selectWords(wordSize, solution.letterOrder.slice(0,1).toSet), "last"->Dict())
-    println(s"\nMot de ${solution.length} lettres : ${solution.mask}\n")
+    val machineAnswers = Map("next"->mainDict.selectWords(wordSize, Set(solution.letterOrder(0))), "last"->Dict())
+    println(s"\nWe are looking for a ${solution.length}-letter word starting with : ${solution.mask}\n")
     make_proposal(retry, playerAnswers, machineAnswers, solution, hideMachine)
