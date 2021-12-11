@@ -1,5 +1,6 @@
 import scala.util.Random
 import scala.io.StdIn.readLine
+import scala.annotation.tailrec
 import math.max
 
 class Word(val str:String=""){
@@ -78,7 +79,7 @@ class Dict(fromFile: String="", fromList: List[Word]=List(), enc:String = "UTF-8
 
 class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
     val color = this.evalProposal()
-    val coloredAnswer = answer.index.foldLeft("") ( (cs:String, x:Int) => s"${cs}${color(x)}${if hide then answer.mask(x) else answer.str(x)}" )          
+    val coloredAnswer = answer.index.foldLeft("") ( (cs:String, x:Int) => s"${cs+color(x)}${if hide then answer.mask(x) else answer.str(x)}" )          
     val isCorrect = answer.str == correct.str
     lazy val goodLetters = for (i<-answer.index ; if color(i)!=Console.BLUE) yield(if color(i)==Console.RED then answer.letterOrder(i) else answer.letters(i))
     lazy val minLetterCount = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length, ">=")
@@ -109,7 +110,7 @@ class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
 
 def clear() = print("\u001b[2J\n")
 
-
+@tailrec
 def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[String,Dict], correct:Word, hideMachine:Boolean=true): Unit =
     val currentPlayerAnswer = retry match {
         case r: Int if r>0 => readLine(s"Your proposal ${(playerAnswers("last").size+1)} on ${(playerAnswers("last").size+retry)} ? ").toUpperCase()
