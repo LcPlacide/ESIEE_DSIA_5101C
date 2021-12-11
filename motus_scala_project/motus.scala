@@ -3,20 +3,20 @@ import scala.io.StdIn.readLine
 import math.max
 
 class Word(val str:String=""){
-    val length = str.length
-    val index = (0 to length-1).toList
-    val (letterOrder, letters, mask) = index.foldLeft((List(), List(), "")) 
+    lazy val length = str.length
+    lazy val index = (0 to length-1).toList
+    lazy val (letterOrder, letters, mask) = index.foldLeft((List(), List(), "")) 
         ( (t:(List[(Char, Int)], List[(Char, Int)], String), x:Int) => 
             ( t(0):::List((str(x),x)), t(1):::List((str(x),-1)), if x==0 then t(2)+str(x) else t(2)+"*" ) )
 
     override def toString: String = str
 
     def isInclude(toInclude:Set[(Char, Int)]): Boolean =
-        val wordSet = letterOrder.toSet.union(letters.toSet)
+        val wordSet = (letterOrder:::letters).toSet
         toInclude.diff(wordSet)==Set()
 
     def isExclude(toExclude:Set[(Char, Int)]): Boolean= 
-        val wordSet = letterOrder.toSet.union(letters.toSet)
+        val wordSet = (letterOrder:::letters).toSet
         toExclude.diff(wordSet)==toExclude
 
     def contains(letters:Set[(Char, Int, String)]): Boolean =
@@ -80,11 +80,11 @@ class Proposal(val answer:Word, val correct:Word, hide:Boolean=false){
     val color = this.evalProposal()
     val coloredAnswer = answer.index.foldLeft("") ( (cs:String, x:Int) => s"${cs}${color(x)}${if hide then answer.mask(x) else answer.str(x)}" )          
     val isCorrect = answer.str == correct.str
-    val goodLetters = for (i<-answer.index ; if color(i)!=Console.BLUE) yield(if color(i)==Console.RED then answer.letterOrder(i) else answer.letters(i))
-    val minLetterCount = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length, ">=")
-    val maxLetterCount = for (t1<-minLetterCount ; maxCount = (for (t2<-answer.letterOrder ; if t2(0)==t1(0)) yield t2).length ; if maxCount>t1(1)) yield (t1(0), maxCount, "<")
-    val countMisplacedLetters = for (t<-minLetterCount++maxLetterCount ; if t(1)>1) yield t
-    val badLetters = answer.index.foldLeft(List()) ( (xs:List[(Char,Int)], x:Int) => 
+    lazy val goodLetters = for (i<-answer.index ; if color(i)!=Console.BLUE) yield(if color(i)==Console.RED then answer.letterOrder(i) else answer.letters(i))
+    lazy val minLetterCount = for (t1<-goodLetters ; if t1(1)==(-1)) yield (t1(0), (for (t2<-goodLetters ; if t2(0)==t1(0)) yield t2).length, ">=")
+    lazy val maxLetterCount = for (t1<-minLetterCount ; maxCount = (for (t2<-answer.letterOrder ; if t2(0)==t1(0)) yield t2).length ; if maxCount>t1(1)) yield (t1(0), maxCount, "<")
+    lazy val countMisplacedLetters = for (t<-minLetterCount++maxLetterCount ; if t(1)>1) yield t
+    lazy val badLetters = answer.index.foldLeft(List()) ( (xs:List[(Char,Int)], x:Int) => 
                                                             if color(x)==Console.RED then xs 
                                                             else if !(correct.str.contains(answer.str(x))) then xs:::List(answer.letters(x)) 
                                                             else if (for (o<-answer.letterOrder ; if o(0)==answer.str(x) && color(o(1))==Console.YELLOW) yield(o)).length==0 then
@@ -117,10 +117,10 @@ def make_proposal(retry:Int, playerAnswers:Map[String,Dict], machineAnswers:Map[
     }
 
     if currentPlayerAnswer=="You lost." then 
-        println(s"No more trials available. The word was ${correct.str}. YOU LOST...\n\n")
+        println(s"No more tries available. The word was ${correct.str}. YOU LOST...\n\n")
         return()
     else if playerAnswers("next").isValidWord(currentPlayerAnswer)==false then 
-        println(s"${currentPlayerAnswer} is not in the dictionnary of the game. Enter something else.")
+        println(s"${currentPlayerAnswer} is not in the dictionary of the game. Enter something else.")
         make_proposal(retry, playerAnswers, machineAnswers, correct, hideMachine)
     else if currentPlayerAnswer.length != correct.length then
         println(s"${currentPlayerAnswer} is too long or too short (${correct.length}-letter word required). Enter something else.") 
